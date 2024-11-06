@@ -17,6 +17,14 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install write-good
+        run: npm install -g write-good
+
       - name: Make script executable (if not already)
         run: chmod +x write-good-against-md-files.sh
 
@@ -26,7 +34,7 @@ jobs:
 
       - name: Check result
         run: |
-          if [ "$(./write-good-against-md-files.sh)" -eq "0" ]; then
+          if [ "$?" -eq "0" ]; then
             echo "Script ran successfully."
           else
             echo "Script failed."
